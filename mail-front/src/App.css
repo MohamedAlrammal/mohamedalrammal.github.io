@@ -1,0 +1,39 @@
+.inboxPage{
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.emailButton{
+  display: flex;
+  flex-direction: row;
+  width: 1224px;
+  height: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content:flex-start;
+  align-items: center;
+
+  background-color: aqua;
+  color: black;
+}
+.priorityButton{
+  background-image: url('threedots.png');
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+}
+.App{
+ 
+}
+.emailSender{
+  width: 168px;
+  height: 20px;
+  padding-right: 32px;
+}
+.emailSubject{
+  width: 670px;
+  height: 20px;
+  padding-right: 16px;
+}
