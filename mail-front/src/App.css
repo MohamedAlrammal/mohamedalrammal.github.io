@@ -1,39 +1,38 @@
-.inboxPage{
-  overflow-x: hidden;
-  overflow-y: auto;
+.App {
+  text-align: center;
 }
-.emailButton{
-  display: flex;
-  flex-direction: row;
-  width: 1224px;
-  height: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  justify-content:flex-start;
-  align-items: center;
 
-  background-color: aqua;
-  color: black;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
-.priorityButton{
-  background-image: url('threedots.png');
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  margin: 0;
-  vertical-align: top;
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
-.App{
- 
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
-.emailSender{
-  width: 168px;
-  height: 20px;
-  padding-right: 32px;
+
+.App-link {
+  color: #61dafb;
 }
-.emailSubject{
-  width: 670px;
-  height: 20px;
-  padding-right: 16px;
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

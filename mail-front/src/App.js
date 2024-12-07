@@ -1,12 +1,22 @@
-
 import './App.css';
-import Inbox_button from './inbox-drafts-page';
-
+import SignIn from './components/signIn page/signIn';
+import Register from './components/Register Page/Register';
+import {RouterProvider, createBrowserRouter} from "react-router-dom";
 function App() {
+  const route = createBrowserRouter([
+    {
+      path:"/",
+      element:<SignIn/>,
+    },
+    {
+      path:"/register",
+      element:<Register/>
+    }
+  ]);
   return (
-    <>
-     <Inbox_button jsonData = {{sender: "ahmed", subject: "hello"}}/>
-    </>
+    <div>
+      <RouterProvider router={route}></RouterProvider>
+    </div>
   );
 }
 
