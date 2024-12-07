@@ -1,39 +1,73 @@
-.inboxPage{
+.mainPage{
   overflow-x: hidden;
   overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 100px;
+  box-sizing: border-box;
+  flex-direction: column;
+  background-color: rgba(240, 248, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
 }
 .emailButton{
   display: flex;
-  flex-direction: row;
-  width: 1224px;
-  height: 20px;
+  font: "Google Sans";
+  width: 900px;
+  min-height: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  justify-content:flex-start;
+  justify-content:space-between;
   align-items: center;
-
-  background-color: aqua;
+  margin-bottom: 5px;
+  box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.12);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-color: red;
+  border: 10px;
   color: black;
+  
+}
+.emailButton:hover{
+  box-shadow: inset 1px 0 0 #dadce0,inset -1px 0 0 #dadce0,0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+  cursor: pointer;
+  z-index: 2;
 }
 .priorityButton{
-  background-image: url('threedots.png');
-  display: inline-block;
   width: 10px;
-  height: 10px;
-  padding: 0;
-  margin: 0;
-  vertical-align: top;
-}
-.App{
- 
+  height: 20px;
+  align-self: center;
+  padding-right: 10px;
+  background-image: radial-gradient(circle, rgb(71, 67, 67) 2px, transparent 3px);
+  background-size: 100% 33.33%;
 }
 .emailSender{
+  flex-grow: 1;
+  margin-right: 32px;
   width: 168px;
-  height: 20px;
-  padding-right: 32px;
+  opacity: 1;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .emailSubject{
-  width: 670px;
-  height: 20px;
+  flex-grow: 2;
   padding-right: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+}
+.emailDate{
+  margin-right: 10px;
+  align-self: flex-end;
+  padding-left: 50px;
+  opacity: 1;
+}
+.App{
+  width: 100%;
+  background-image: url('img0.jpg');
+  background-size: cover;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Avoid repeating the image */
+  background-attachment: fixed;
 }
