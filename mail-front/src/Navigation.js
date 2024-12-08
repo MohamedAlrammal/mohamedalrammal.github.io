@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navigation.css";
+
 import { FiInbox, FiSend, FiUser, FiFileText, FiTrash2 } from "react-icons/fi";
 const Navigation = () => {
   return (

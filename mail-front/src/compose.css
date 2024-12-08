@@ -1,0 +1,71 @@
+.compose-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0; /* Add margin to create space around the button */
+  }
+  
+  .compose-button {
+    width: 250px;
+    background-color: #1a73e8;
+    padding: 15px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Changed to fixed to keep it on the right side */
+    top: 100px; /* Adjusted to be below the header */
+    right: 20px; /* Adjust as needed */
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .compose-button:hover {
+    background-color: #8b9caf;
+    transform: translateY(-2px);
+  }
+  
+  .compose-modal {
+    position: fixed;
+    top: 160px; /* Adjusted to be below the compose button */
+    right: 20px; /* Align with the compose button */
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+  }
+  .compose-button img {
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .compose-modal input,
+  .compose-modal textarea,
+  .compose-modal select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .compose-modal button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3e7ac4;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .compose-modal button:hover {
+    background-color: #1669c1;
+  }

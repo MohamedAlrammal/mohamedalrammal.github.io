@@ -1,8 +1,20 @@
 import Header from './Header';
+import React, {useState } from 'react';
 import Navigation from './Navigation';
 import Inbox from './inbox';
-
+import ComposeButton from './ComposeButton';
+import ComposeModal from './ComposeModal';
 function App() {
+  const [isComposeOpen, setIsComposeOpen] = useState(false);
+
+  const handleComposeClick = () => {
+    setIsComposeOpen(!isComposeOpen);
+  };
+
+  const handleCloseCompose = () => {
+    setIsComposeOpen(false);
+  };
+
   const arr = [
     JSON.parse('{"sender":"ahmed", "subject":"today is the day of today", "date":"2-10-2024"}'),
     JSON.parse('{"sender":"ahmed", "subject":"today is the day of today", "date":"2-10-2024"}'),
@@ -37,7 +49,11 @@ function App() {
         <div className="inbox-container">
           <Inbox jsonDataArray={arr} />
         </div>
-      </div>
+        </div>
+        <div className="relative">
+      <ComposeButton onClick={handleComposeClick} />
+      {isComposeOpen && <ComposeModal onClose={handleCloseCompose} />}
+    </div>
     </div>
   );
 }
