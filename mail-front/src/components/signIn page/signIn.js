@@ -2,9 +2,11 @@ import React from "react";
 import './signIn.css';
 import { FaUser } from "react-icons/fa";
 import { TbLockPassword } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 
 const SignIn = () => {
+    const navigate = useNavigate();
+
     return(
         <div className="wrapper">
             <form action="">
@@ -22,7 +24,7 @@ const SignIn = () => {
                     <a href="#">Forget Password?</a>
                 </div>
 
-                <button type="submit">Login</button>
+                <button onClick={() => navigate('/page')} type="submit">Login</button>
 
                 <div className="register">
                     <p>Don't have account? <Link to='/register'>Register Now</Link></p>
