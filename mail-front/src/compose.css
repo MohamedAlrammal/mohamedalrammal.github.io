@@ -5,14 +5,14 @@
   }
   
   .compose-button {
-    width: 250px;
+    width: 200px;
     background-color: #1a73e8;
     padding: 15px 20px;
     border-radius: 50px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: fixed; /* Changed to fixed to keep it on the right side */
     top: 100px; /* Adjusted to be below the header */
-    right: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
     transition: background-color 0.3s, transform 0.3s;
     display: flex;
     align-items: center;
@@ -30,9 +30,9 @@
   
   .compose-modal {
     position: fixed;
-    top: 160px; /* Adjusted to be below the compose button */
-    right: 20px; /* Align with the compose button */
-    width: 300px;
+    top: 170px; /* Adjusted to be below the compose button */
+    left: 15vw; /* Align with the compose button */
+    width: 75vw;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

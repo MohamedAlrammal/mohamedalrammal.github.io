@@ -11,7 +11,7 @@ const Inbox = ({ jsonDataArray }) => {
             <th className="p-2 emailSenderHeader">Sender</th>
             <th className="p-2 emailSubjectHeader">Subject</th>
             <th className="p-2 emailDateHeader">Date</th>
-            <th className="p-2"></th>
+            <th className="p-2 moreHeader"></th>
           </tr>
         </thead>
         <tbody>

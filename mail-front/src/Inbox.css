@@ -1,11 +1,18 @@
+
 .email-list {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  width: 700px; /* Adjusted width */
+  width: 65vw; /* Adjusted width */
+  height: 70vh;
   max-height: 80vh; /* Fixed height for scrollable area */
   overflow-y: auto;
+  position: fixed;
+  top: 180px;
+  left: 250px;
+
+
 }
 
 .email-list table {
@@ -13,13 +20,15 @@
   text-align: left;
 }
 
+
+
 .email-list th,
 .email-list td {
   padding: 0.5rem;
 }
 
 .email-list th {
-  text-align: left;
+  
   background-color: rgba(255, 255, 255, 0.5); /* Add background color to header */
   position: sticky; /* Make header sticky */
   top: 100000000; /* Stick to the top */
@@ -28,6 +37,8 @@
 
 .email-list tr {
   border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  width: 100%;
 }
 
 .emailButton {
@@ -68,6 +79,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  
+  
 }
 
 .sender-name {
@@ -78,20 +91,26 @@
 .emailSubject {
   width: 55%; /* Adjusted width */
   padding-right: 16px;
+  padding-left: 10px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   opacity: 1;
+  
 }
 
 .emailDateHeader,
 .emailDate {
-  width: 15%; /* Adjusted width */
+  width: 25%; /* Adjusted width */
   text-align: right;
   opacity: 1;
+  
 }
 
+
+.moreHeader,
 .more-button {
+  width: 5%;
   background: none;
   border: none;
   cursor: pointer;

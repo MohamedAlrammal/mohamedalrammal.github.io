@@ -1,4 +1,7 @@
 .filter-container {
+    position: fixed;
+    top:10px;
+    left:30vw;
     display: flex;
     align-items: center;
     gap: 10px; /* Space between buttons */
