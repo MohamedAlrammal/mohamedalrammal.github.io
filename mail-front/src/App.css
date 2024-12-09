@@ -36,7 +36,7 @@
   align-items: center;
   padding: 0; /* Remove padding */
   justify-content: space-between;
-  margin-bottom: 0; /* Remove margin */
+  margin-bottom: 10; /* Remove margin */
   box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.12);
   background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid transparent;
@@ -104,3 +104,14 @@
   color: #000;
 }
 
+inbox-wrapper {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  align-items: flex-start; /* Align items to the top */
+  gap: 20px; /* Space between filters and email list */
+  padding: 10px;
+}
+.inbox-container {
+  flex-grow: 1; /* Ensure the inbox takes up remaining space */
+  width: 100%;
+}

@@ -4,6 +4,8 @@ import Navigation from './Navigation';
 import Inbox from './inbox';
 import ComposeButton from './ComposeButton';
 import ComposeModal from './ComposeModal';
+import FilterButtons from './FilterButtons';
+
 function App() {
   const [isComposeOpen, setIsComposeOpen] = useState(false);
 
@@ -45,14 +47,18 @@ function App() {
     <div className="App">
       <Header />
       <div className="main-content">
-        <Navigation />
-        <div className="inbox-container">
-          <Inbox jsonDataArray={arr} />
-        </div>
-        </div>
+    <Navigation />
+    <div>
+        <FilterButtons />
+      </div>
+      <div>
+        <Inbox jsonDataArray={arr} />
+    </div>
+</div>
         <div className="relative">
       <ComposeButton onClick={handleComposeClick} />
       {isComposeOpen && <ComposeModal onClose={handleCloseCompose} />}
+      
     </div>
     </div>
   );
