@@ -1,7 +1,6 @@
 import './inbox.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashRestore } from '@fortawesome/free-solid-svg-icons';
-import { FiMoreVertical } from "react-icons/fi";
 
 /** 
  * @param jsonDataArray contains the json data for emails
@@ -19,7 +18,7 @@ export default function Trash({jsonDataArray, setCurrentPage}){
   <table className="w-full text-left">
     <thead>
       <tr>
-        <th className="p-2 emailSenderHeader">Sender</th>
+        <th className="p-2 emailSenderHeader">Sender(Receiver)</th>
         <th className="p-2 emailSubjectHeader">Subject</th>
         <th className="p-2 emailDateHeader">Date</th>
         <th className="p-2 moreHeader"></th>
@@ -36,15 +35,12 @@ function Trash_button({jsonData, setCurrentPage}){
       return <>
         <tr className="border-b emailButton" >
               <td className="p-2 emailSender">
-                <span className="sender-name" >{(jsonData.type === 'received')?jsonData.sender:jsonData.receiver}</span>
+                <span className="sender-name" >{(jsonData.type === 'received')?jsonData.sender:"("+jsonData.receiver+")"}</span>
               </td>
               <td className="p-2 emailSubject">{jsonData.subject}</td>
               <td className="p-2 emailDate">{jsonData.date}</td>
-              <td className="p-2">
               <div onClick={(e) => {e.stopPropagation();handleRestore(jsonData,setCurrentPage)}}><FontAwesomeIcon icon={faTrashRestore} /></div>
-                <button className="more-button">
-                  <FiMoreVertical />
-                </button>
+              <td className="p-2">
               </td>
             </tr>
       </>

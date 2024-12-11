@@ -10,6 +10,7 @@ import Header from './Header';
 import Navigation from './Navigation';
 import FilterButtons from './FilterButtons';
 import ComposeButton from './ComposeButton';
+import Contacts from './contacts'
 
 function App() {
   /*
@@ -26,10 +27,11 @@ function App() {
   //   <><Compose /></>
   // );
   //inboxArr
-    const [contentArr, setContentArr] = useState(JSON.parse('[]'))
+    const [contentArr, setContentArr] = useState(JSON.parse('[{"sender":"Ahmed", "receiver":"hamada", "email":"hello", "type":"drafts", "subject":"hello my friend"},{"sender":"Ahmed", "receiver":"hamada", "email":"hello", "type":"received", "subject":"hello my friend"}]'))
+    const [contactArr, setContactArr] = useState(JSON.parse('[]'));
     //testing data 
     //setContentArr(JSON.parse('[{"sender":"ahmed", "subject":"today is the day of  today", "date":"2-10-2024", "type":"received"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}]'))
-    const [currentPage, setCurrentPage] = useState("inbox");
+    const [currentPage, setCurrentPage] = useState("contacts");
     const [jsonData, setJsonData] = useState({});
 
     const [Content, setContent] = useState(<Inbox jsonDataArray={contentArr} currentPage={currentPage} setCurrentPage={setCurrentPage} setJsonData={setJsonData}/>)
@@ -83,7 +85,9 @@ function App() {
           setContent(<ShowEmail jsonData={jsonData} setCurrentPage={setCurrentPage}/>);
       } else if (currentPage === 'compose') {
           setIsComposeOpen(true)
-      }
+      }else if (currentPage === 'contacts') {
+        setContent(<Contacts jsonDataArray={JSON.parse('[{"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}]')} setCurrentPage={setCurrentPage} setJsonData={setJsonData}/>);
+    } 
       // console.log(inboxArr[0])
   }, [currentPage]); 
   return (
@@ -91,7 +95,7 @@ function App() {
       <Header/>
       {Content}
       <Navigation setCurrentPage={setCurrentPage}/>
-      <FilterButtons setContentArray = {setContentArr} setCurrentPage={setCurrentPage}/>
+      <FilterButtons setContentArray = {setContentArr} setCurrentPage={setCurrentPage} jsonData={jsonData}/>
       <ComposeButton onClick={handleComposeClick} />
       {isComposeOpen && <Compose jsonData={jsonData} setCurrentPage={setCurrentPage} onClose={handleCloseCompose} />}
     

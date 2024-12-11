@@ -16,15 +16,6 @@ const Header = () => {
         />
       </div>
 
-      <div className="header__center">
-        <FiSearch className="header__icon" />
-        <input
-          type="text"
-          className="header__searchInput"
-          placeholder="Search mail"
-        />
-      </div>
-
       <div className="header__right">
         <MdOutlineHelpOutline className="header__icon" />
         <MdOutlineSettings className="header__icon" />

@@ -1,17 +1,16 @@
 import './inbox.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FiMoreVertical } from "react-icons/fi";
-
+import DropdownButton from './DropdownButton';
 /** 
  * @param jsonDataArray contains the json data for emails
  */
 
 //setJsonData is used to handle data outside the inbox component
-export default function Inbox({jsonDataArray, setCurrentPage, setJsonData}){
+export default function Inbox({jsonDataArray, setCurrentPage, setJsonData, jsonData}){
 
   const inboxList = jsonDataArray.map(inbox => <Inbox_button 
-    jsonData={{sender:inbox.sender, subject:inbox.subject, date:inbox.date, receiver:inbox.receiver, type:inbox.type, email:inbox.email, attachments:inbox.attachments}}
+    jsonData={{...inbox}}
     setCurrentPage={setCurrentPage}
     setJsonData={setJsonData}
     />);
@@ -41,11 +40,9 @@ function Inbox_button({jsonData, setCurrentPage, setJsonData}){
               </td>
               <td className="p-2 emailSubject">{jsonData.subject}</td>
               <td className="p-2 emailDate">{jsonData.date}</td>
-              <td className="p-2">
               <div onClick={(e) => {e.stopPropagation();handleTrashButton(jsonData,setCurrentPage)}}><FontAwesomeIcon icon={faTrash} /></div>
-                <button className="more-button">
-                  <FiMoreVertical />
-                </button>
+              <td className="p-2">
+                <DropdownButton jsonData={jsonData} setJsonData={setJsonData}/>
               </td>
             </tr>
       </>

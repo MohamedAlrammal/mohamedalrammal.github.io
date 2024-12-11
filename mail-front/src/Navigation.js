@@ -14,7 +14,7 @@ const Navigation = ({setCurrentPage}) => {
           <FiSend className="navigation__icon" />
           <span>Sent</span>
         </li>
-        <li className="navigation__item" onClick={() => {setCurrentPage('contact')}}>
+        <li className="navigation__item" onClick={() => {setCurrentPage('contacts')}}>
           <FiUser className="navigation__icon" />
           <span>Contact</span>
         </li>
