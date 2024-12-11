@@ -8,14 +8,16 @@ import { FiMoreVertical } from "react-icons/fi";
  */
 
 //setJsonData is used to handle data outside the inbox component
-export default function Inbox({jsonDataArray, setCurrentPage, setJsonData}){
+export default function Sent({jsonDataArray, setCurrentPage, setJsonData}){
 
-  const inboxList = jsonDataArray.map(inbox => <Inbox_button 
-    jsonData={{sender:inbox.sender, subject:inbox.subject, date:inbox.date, receiver:inbox.receiver, type:inbox.type, email:inbox.email, attachments:inbox.attachments}}
+  const inboxList = jsonDataArray.map(inbox => <Sent_button 
+    jsonData={{sender:inbox.sender, subject:inbox.subject, date:inbox.date, receiver:inbox.receiver, type:inbox.type, email:inbox.email}}
     setCurrentPage={setCurrentPage}
     setJsonData={setJsonData}
     />);
+    
     //console.log("FROM INBOX COMP" + typeof setJsonData)
+    
   return <div className="email-list">
   <table className="w-full text-left">
     <thead>
@@ -33,7 +35,7 @@ export default function Inbox({jsonDataArray, setCurrentPage, setJsonData}){
 </div>
 }
 
-function Inbox_button({jsonData, setCurrentPage, setJsonData}){
+function Sent_button({jsonData, setCurrentPage, setJsonData}){
       return <>
         <tr className="border-b emailButton" onClick={() => {handleEmailButton(setJsonData,setCurrentPage, jsonData);}}>
               <td className="p-2 emailSender">
@@ -55,10 +57,16 @@ function handleEmailButton(setJsonData, setCurrentPage, jsonData){
       console.log(typeof setJsonData)
       setJsonData(jsonData);
       setCurrentPage('show-emails');
+      console.log(jsonData)
 }
 
-function handleTrashButton(jsonData, setCurrentPage){
-    //sends the json data of the trash email to the backend to delete it from the inbox and put it in the trash
-    setCurrentPage('trash');
-    setCurrentPage('inbox');
+function handleTrashButton(jsonData,setCurrentPage){
+  //sends the json data of the trash email to the backend to delete it from the sent emails and put it in the trash
+  setCurrentPage('trash');
+  setCurrentPage('sent-emails');
+}
+
+function handlePriority(setJsonData){
+  //handle the priority in the backend change the priority of this json to whatever needed
+
 }

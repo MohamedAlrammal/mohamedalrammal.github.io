@@ -1,0 +1,36 @@
+.filter-container {
+  position: fixed;
+  top:10px;
+  left:30vw;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+  margin: 100px 60px; /* Margin above and below the filter bar */
+}
+
+.filter-button {
+  padding: 5px 12px;
+  background-color: #f1f3f4;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-button select {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-button:hover {
+  background-color: #e9ecef;
+  border-color: #ccc;
+}
