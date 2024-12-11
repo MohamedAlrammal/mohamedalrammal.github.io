@@ -1,6 +1,7 @@
 package com.mail.mail_backend.Builder;
 
 
+import com.mail.mail_backend.SaveLoad.SaveMessage;
 import com.mail.mail_backend.SignIn.User;
 
 import java.util.Date;
@@ -24,6 +25,7 @@ public class AssembleMessage implements BuilderEmail {
     }
     @Override
     public EmailInfo getResult() {
+        SaveMessage saveMessage = new SaveMessage(emailInfo);
         return emailInfo;
     }
 }

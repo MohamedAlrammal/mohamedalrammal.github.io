@@ -30,18 +30,34 @@ public class MailController {
     public void Message(@RequestBody EmailInfo emailInfo) {
         mailService.information();
     }
-    @PostMapping("/inbox")
+    @GetMapping ("/inbox")
     public List<EmailInfo> inbox(){
         return mailService.Inbox();
     }
-    @PostMapping("/send")
+    @GetMapping("/send")
     public List<EmailInfo> send(){
+
         return mailService.Send();
     }
-    @PostMapping("/draft")
+    @GetMapping("/draft")
     public List <EmailInfo> draft(){
+
         return mailService.Drafts();
     }
-
+    @PostMapping("/deleteIn")
+    public List<EmailInfo>deleteIn(EmailInfo emailInfo){
+        mailService.deleteMes(emailInfo);
+        return mailService.Inbox();
+    }
+    @PostMapping("/deleteSe")
+    public List<EmailInfo>deleteSe(EmailInfo emailInfo){
+        mailService.deleteMes(emailInfo);
+        return mailService.Send();
+    }
+    @PostMapping("/deleteDr")
+    public List<EmailInfo>deleteDr(EmailInfo emailInfo){
+        mailService.deleteMes(emailInfo);
+        return mailService.Drafts();
+    }
 
 }
