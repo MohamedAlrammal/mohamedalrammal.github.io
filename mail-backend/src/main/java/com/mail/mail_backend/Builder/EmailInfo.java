@@ -5,13 +5,25 @@ import com.mail.mail_backend.SignIn.User;
 import java.io.Serializable;
 
 public class EmailInfo implements Serializable {
-    protected String Sender;
-    protected String Receiver;
-    protected String email;
-    protected String Type;
-    protected String Subject;
-    protected String Date;
-    protected String Attachment;
+    private static final long serialVersionUID = 3915522481892032731L;
+    private String Sender;
+    private String Receiver;
+    private String email;
+    private String Type;
+    private String Subject;
+    private String Date;
+    private String Attachment;
+
+    public EmailInfo(String sender, String receiver, String email, String type, String subject, String date, String attachment, int priority) {
+        Sender = sender;
+        Receiver = receiver;
+        this.email = email;
+        Type = type;
+        Subject = subject;
+        Date = date;
+        Attachment = attachment;
+        Priority = priority;
+    }
 
     public String getAttachment() {
         return Attachment;
@@ -77,5 +89,5 @@ public class EmailInfo implements Serializable {
         Type = type;
     }
 
-    protected int Priority;
+    private int Priority;
 }

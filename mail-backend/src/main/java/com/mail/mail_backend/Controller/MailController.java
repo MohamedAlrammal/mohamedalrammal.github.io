@@ -1,6 +1,8 @@
 package com.mail.mail_backend.Controller;
 
+import com.mail.mail_backend.Builder.DeleteMail;
 import com.mail.mail_backend.Builder.EmailInfo;
+import com.mail.mail_backend.Builder.person;
 import com.mail.mail_backend.Service.MailService;
 import com.mail.mail_backend.Login.Request;
 import com.mail.mail_backend.SignIn.User;
@@ -27,37 +29,73 @@ public class MailController {
         return mailService.Signuser(user);
     }
     @PostMapping("/message")
-    public void Message(@RequestBody EmailInfo emailInfo) {
-        mailService.information();
-    }
-    @GetMapping ("/inbox")
-    public List<EmailInfo> inbox(){
-        return mailService.Inbox();
-    }
-    @GetMapping("/send")
-    public List<EmailInfo> send(){
+    public EmailInfo Message(@RequestBody EmailInfo emailInfo) {
 
-        return mailService.Send();
+        return mailService.information(emailInfo);
     }
-    @GetMapping("/draft")
-    public List <EmailInfo> draft(){
+    @PostMapping  ("/inbox")
+    public List<EmailInfo> inbox(@RequestBody person person){
 
-        return mailService.Drafts();
+        return mailService.Inbox(person);
+    }
+    @PostMapping("/send")
+    public List<EmailInfo> send(@RequestBody person person){
+
+        return mailService.Send(person);
+    }
+    @PostMapping("/draft")
+    public List <EmailInfo> draft(@RequestBody person person){
+
+        return mailService.Drafts(person);
+    }
+     @PostMapping("/delete")
+    public DeleteMail deleteMes(@RequestBody DeleteMail deleteMail){
+        return mailService.deleteMes(deleteMail);
+     }
+     @PostMapping("/trash")
+    public List<DeleteMail> trash(@RequestBody person person){
+        return mailService.Trash(person);
+     }
+     @PostMapping("/sortIn")
+    public List<EmailInfo> Sortedin(@RequestBody person person){
+        return mailService.SortedInbox(person);
+     }
+    @PostMapping("/sortSe")
+    public List<EmailInfo> Sortedse(@RequestBody person person){
+        return mailService.SortedSend(person);
+    }
+    @PostMapping("/sortDr")
+    public List<EmailInfo> Sorteddr(@RequestBody person person){
+        return mailService.SortedDraft(person);
     }
     @PostMapping("/deleteIn")
-    public List<EmailInfo>deleteIn(EmailInfo emailInfo){
-        mailService.deleteMes(emailInfo);
-        return mailService.Inbox();
+    public List<EmailInfo>deletein(@RequestBody DeleteMail deleteMail){
+        return mailService.deleteIn(deleteMail);
     }
     @PostMapping("/deleteSe")
-    public List<EmailInfo>deleteSe(EmailInfo emailInfo){
-        mailService.deleteMes(emailInfo);
-        return mailService.Send();
+    public List<EmailInfo>deletese(@RequestBody DeleteMail deleteMail){
+        return mailService.deleteSe(deleteMail);
     }
     @PostMapping("/deleteDr")
-    public List<EmailInfo>deleteDr(EmailInfo emailInfo){
-        mailService.deleteMes(emailInfo);
-        return mailService.Drafts();
+    public List<EmailInfo>deletedr(@RequestBody DeleteMail deleteMail){
+        return mailService.deleteDR(deleteMail);
     }
+
+
+//    @PostMapping("/deleteIn")
+//    public List<EmailInfo>deleteIn(EmailInfo emailInfo){
+//        mailService.deleteMes(emailInfo);
+//        return mailService.Inbox();
+//    }
+//    @PostMapping("/deleteSe")
+//    public List<EmailInfo>deleteSe(EmailInfo emailInfo){
+//        mailService.deleteMes(emailInfo);
+//        return mailService.Send();
+//    }
+//    @PostMapping("/deleteDr")
+//    public List<EmailInfo>deleteDr(EmailInfo emailInfo){
+//        mailService.deleteMes(emailInfo);
+//        return mailService.Drafts();
+//    }
 
 }

@@ -7,14 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecievedCriteria implements EmailCriteria{
-    private User user;
+    private String person;
+    public RecievedCriteria(String person){
+        this.person=person;
+    }
+
     @Override
     public List<EmailInfo> FilterTypes(List<EmailInfo> emails) {
-        List<EmailInfo>ReceviedEm=new ArrayList<>();
-        for(EmailInfo e: emails){
-            if(e.getReceiver().equals(user.getMail()))
-                ReceviedEm.add(e);
+        DeleteInterface deleteInterface =new DeleteInbox();
+
+        if (emails == null) {
+            return new ArrayList<>(); // Return an empty list if null
         }
-        return ReceviedEm;
+
+        List<EmailInfo> ReEmails = new ArrayList<>();
+        for (EmailInfo e : emails) {
+            if (e != null && e.getReceiver() != null&&e.getReceiver().equals(person)&& deleteInterface.FilterTypes(e)) {
+                ReEmails.add(e);
+            }
+        }
+        return ReEmails;
     }
 }
+
+

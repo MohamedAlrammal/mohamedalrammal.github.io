@@ -7,14 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SenderCriteria implements EmailCriteria{
-    private User user;
+    private String person;
+    public SenderCriteria(String person){
+        this.person=person;
+    }
+
     @Override
     public List<EmailInfo> FilterTypes(List<EmailInfo> emails) {
-        List<EmailInfo>SenderEm=new ArrayList<>();
-        for(EmailInfo e: emails){
-            if(e.getSender().equals(user.getMail()))
-                SenderEm.add(e);
+        DeleteInterface deleteInterface =new DeleteSend();
+        if (emails == null) {
+            return new ArrayList<>(); // Return an empty list if null
         }
-        return SenderEm;
+
+        List<EmailInfo> senderEmails = new ArrayList<>();
+        for (EmailInfo e : emails) {
+            if (e != null && e.getSender() != null&&e.getSender().equals(person)&& deleteInterface.FilterTypes(e)) {
+                senderEmails.add(e);
+            }
+        }
+        return senderEmails;
     }
 }
