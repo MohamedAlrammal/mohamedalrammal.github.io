@@ -3,6 +3,7 @@ package com.mail.mail_backend.Controller;
 import com.mail.mail_backend.Builder.DeleteMail;
 import com.mail.mail_backend.Builder.EmailInfo;
 import com.mail.mail_backend.Builder.person;
+import com.mail.mail_backend.Contact.ContactsUsers;
 import com.mail.mail_backend.Service.MailService;
 import com.mail.mail_backend.Login.Request;
 import com.mail.mail_backend.SignIn.User;
@@ -80,6 +81,15 @@ public class MailController {
     public List<EmailInfo>deletedr(@RequestBody DeleteMail deleteMail){
         return mailService.deleteDR(deleteMail);
     }
+    @PostMapping("/addContact")
+    public ContactsUsers addContact(@RequestBody ContactsUsers contactsUsers){
+        return mailService.addContact(contactsUsers);
+    }
+    @PostMapping("/getContacts")
+    public List<ContactsUsers> getContact(@RequestBody person person){
+        return mailService.contactList(person);
+    }
+
 
 
 //    @PostMapping("/deleteIn")

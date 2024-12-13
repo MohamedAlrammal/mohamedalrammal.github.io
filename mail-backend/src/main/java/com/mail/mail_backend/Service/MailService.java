@@ -1,6 +1,9 @@
 package com.mail.mail_backend.Service;
 
 import com.mail.mail_backend.Builder.*;
+import com.mail.mail_backend.Contact.ContactsUsers;
+import com.mail.mail_backend.Contact.LoadContacts;
+import com.mail.mail_backend.Contact.SaveContacts;
 import com.mail.mail_backend.Filter.*;
 import com.mail.mail_backend.Login.*;
 
@@ -131,6 +134,20 @@ public List<EmailInfo>deleteIn(DeleteMail deleteMail){
         SaveDelete saveDelete =new SaveDelete(deleteMail);
         person person =new person(deleteMail.getSender());
         return Inbox(person);
+}
+public ContactsUsers addContact(ContactsUsers contactsUsers){
+    SaveContacts saveContacts =new SaveContacts(contactsUsers);
+    return contactsUsers;
+}
+public List<ContactsUsers>contactList(person person){
+    LoadContacts loadContacts = new LoadContacts();
+    List<ContactsUsers>contactsUsersList=loadContacts.getContactsUsers();
+    List<ContactsUsers>GetContacts=new ArrayList<>();
+    for(ContactsUsers c:contactsUsersList){
+        if(person.getGuest().equals(c.getAdmin()))
+            GetContacts.add(c);
+    }
+    return GetContacts;
 }
 
 
