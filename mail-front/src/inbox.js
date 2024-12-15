@@ -40,7 +40,7 @@ function Inbox_button({jsonData, setCurrentPage, setJsonData}){
               </td>
               <td className="p-2 emailSubject">{jsonData.subject}</td>
               <td className="p-2 emailDate">{jsonData.date}</td>
-              <div onClick={(e) => {e.stopPropagation();handleTrashButton(jsonData,setCurrentPage)}}><FontAwesomeIcon icon={faTrash} /></div>
+              <div onClick={(e) => {e.stopPropagation();setJsonData({...jsonData, isDeleted:true});handleTrashButton(jsonData,setCurrentPage)}}><FontAwesomeIcon icon={faTrash} /></div>
               <td className="p-2">
                 <DropdownButton jsonData={jsonData} setJsonData={setJsonData}/>
               </td>

@@ -33,7 +33,7 @@ import './contacts.css';
       </button>
 
       {showInputBox && (
-        <div className="input-box">
+        <div className="input-boxx">
           <input
             type="text"
             placeholder="Enter name"

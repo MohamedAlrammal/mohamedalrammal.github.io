@@ -1,4 +1,4 @@
-import './App.css';
+import './show-emails.css';
 
 /** 
  * @param jsonDataArray contains the json data for emails
@@ -24,11 +24,11 @@ export default function ShowEmail({jsonData, setCurrentPage}){
     jsonData.attachments = [];
   }
   
-  return <div>
-         <button onClick={() => {handleBackButton()}}>back</button>
-         <h3>{jsonData.subject}</h3>
-          <p>{jsonData.email}</p>
-          <h4>Attachments:</h4>
+  return <div className='page'>
+         <button className='back' onClick={() => {handleBackButton()}}>back</button>
+         <h1 className='subject'>{jsonData.subject}</h1>
+          <p className='email'>{jsonData.email}</p>
+          <h4 className='attachments'>Attachments:</h4>
           <ul>
                 {jsonData.attachments.map((attachment, index) => (
                     <li key={index}>
