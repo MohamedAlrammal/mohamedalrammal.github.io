@@ -46,6 +46,8 @@ function Trash_button({jsonData, setCurrentPage}){
       </>
 }
 
+
+
 function handleRestore(jsonData, setCurrentPage){
       //send this jsonData to the backend to remove it from the trash and restore it to its original place
       setCurrentPage('dummy')
