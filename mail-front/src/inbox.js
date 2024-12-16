@@ -2,6 +2,8 @@ import './inbox.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import DropdownButton from './DropdownButton';
+import axios from 'axios';
+axios.defaults.withCredentials = false;
 /** 
  * @param jsonDataArray contains the json data for emails
  */
@@ -56,6 +58,7 @@ function handleEmailButton(setJsonData, setCurrentPage, jsonData){
 
 function handleTrashButton(jsonData, setCurrentPage){
     //sends the json data of the trash email to the backend to delete it from the inbox and put it in the trash
+    
     setCurrentPage('trash');
     setCurrentPage('inbox');
 }

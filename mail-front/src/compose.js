@@ -1,8 +1,11 @@
 import './compose.css';
+import axios from 'axios';
+axios.defaults.withCredentials = false;
 
-export default function Compose({jsonData, setCurrentPage, onClose}){
-
+export default function Compose({jsonData, setCurrentPage, onClose, user}){
+  let path = "http://localhost:8080/api/Mail";
   async function handleBack(e){
+    
     e.preventDefault();
 
     const form = e.target.form;
@@ -10,7 +13,7 @@ export default function Compose({jsonData, setCurrentPage, onClose}){
 
     const newJsonData = Object.fromEntries(formData.entries());
     delete newJsonData.files
-    newJsonData.type = 'drafts'
+    newJsonData.type = 'Draft'
     newJsonData.priority = 2
     let attachments = []
     if(form.files !== undefined){const files = Array.from(form.files.files);
@@ -23,8 +26,27 @@ export default function Compose({jsonData, setCurrentPage, onClose}){
         }))
     );}
     newJsonData.attachments = attachments;
-
+    newJsonData.sender = user
     console.log(newJsonData)
+    await axios.post("http://localhost:8080/api/Mail/message", newJsonData,{
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: false
+    }).then(response => {console.log('response have been received')})
+      .catch(error => {console.error('Full error:', error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          console.error('Error response:', error.response.data);
+          console.error('Error status:', error.response.status);
+          console.error('Error headers:', error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('Error request:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error message:', error.message);
+        }});
      //newJsonData.attachments = ; //fill it with attachments
      //send this newJsonData to the backend to store it in the drafts ***&&&&****
     
@@ -53,7 +75,27 @@ export default function Compose({jsonData, setCurrentPage, onClose}){
        }))
    );
     delete newJsonData.files
+    newJsonData.sender = user
     console.log(newJsonData)
+    await axios.post("http://localhost:8080/api/Mail/message", newJsonData,{
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: false
+    }).then(response => {console.log('response have been received')})
+      .catch(error => {console.error('Full error:', error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          console.error('Error response:', error.response.data);
+          console.error('Error status:', error.response.status);
+          console.error('Error headers:', error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('Error request: hello', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error message:', error.message);
+        }});
      //newJsonData.attachments = ; //fill it with attachments
      //send this newJsonData to the backend to store it in the sent emails ***&&&&****
     setCurrentPage('sent-emails');
