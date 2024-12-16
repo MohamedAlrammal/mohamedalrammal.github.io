@@ -128,12 +128,12 @@ public List<EmailInfo>deleteIn(DeleteMail deleteMail){
     public List<EmailInfo>deleteSe(DeleteMail deleteMail){
         SaveDelete saveDelete =new SaveDelete(deleteMail);
         person person =new person(deleteMail.getSender());
-        return Inbox(person);
+        return Send(person);
 }
     public List<EmailInfo>deleteDR(DeleteMail deleteMail){
         SaveDelete saveDelete =new SaveDelete(deleteMail);
         person person =new person(deleteMail.getSender());
-        return Inbox(person);
+        return Drafts(person);
 }
 public ContactsUsers addContact(ContactsUsers contactsUsers){
     SaveContacts saveContacts =new SaveContacts(contactsUsers);

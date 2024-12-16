@@ -21,7 +21,7 @@ public class SenderCriteria implements EmailCriteria{
 
         List<EmailInfo> senderEmails = new ArrayList<>();
         for (EmailInfo e : emails) {
-            if (e != null && e.getSender() != null&&e.getSender().equals(person)&& deleteInterface.FilterTypes(e)) {
+            if (e != null && e.getSender() != null&&e.getSender().equals(person)&& deleteInterface.FilterTypes(e)&& e.getType().equals("sent")) {
                 senderEmails.add(e);
             }
         }

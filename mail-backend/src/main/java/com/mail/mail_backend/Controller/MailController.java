@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/Mail")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MailController {
     @Autowired
     private MailService mailService;
