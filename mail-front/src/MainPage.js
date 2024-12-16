@@ -28,12 +28,12 @@ function MainPage() {
   //   <><Compose /></>
   // );
   //inboxArr
-    const user = "YoussefKhamis@gmail.com"
+    const user = localStorage.getItem('email');
     const [contentArr, setContentArr] = useState(JSON.parse('[]'))
     const [contactArr, setContactArr] = useState(JSON.parse('[]'));
     //testing data 
     //setContentArr(JSON.parse('[{"sender":"ahmed", "subject":"today is the day of  today", "date":"2-10-2024", "type":"received"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}]'))
-    const [currentPage, setCurrentPage] = useState("sent-emails");
+    const [currentPage, setCurrentPage] = useState("inbox");
     const [jsonData, setJsonData] = useState({});
 
     const [Content, setContent] = useState(<Inbox jsonDataArray={contentArr} currentPage={currentPage} setCurrentPage={setCurrentPage} setJsonData={setJsonData}/>)
@@ -47,31 +47,27 @@ function MainPage() {
       setIsComposeOpen(false);
     };
     
+    //sending data
+    const postData = async (string) => {
+      try {
+        const response = await axios.post("http://localhost:8080/api/Mail/"+string, `{"guest":"${user}"}`,{
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              withCredentials: false
+            });
+        //console.log(response.data); // Access the response data
+        setContentArr(response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
     //changing content  based on the page
-    useEffect(() => {
+     useEffect(() => {
       if (currentPage === 'inbox') {
         //reload all of the josndata in the content array from the backend
-         axios.post("http://localhost:8080/api/Mail/inbox", `{"guest":"${user}"}`,{
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: false
-        }).then((response) => {console.log(response.data);setContentArr(response.data);})
-          .catch(error => {console.error('Full error:', error);
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              console.error('Error response:', error.response.data);
-              console.error('Error status:', error.response.status);
-              console.error('Error headers:', error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.error('Error request:', error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.error('Error message:', error.message);
-            }});
-
+          postData("inbox");
           setContent(
               <Inbox
                   jsonDataArray={contentArr}
@@ -81,25 +77,7 @@ function MainPage() {
           );
          // console.log("from the app.js"+typeof setJsonData)
       }else if(currentPage === 'drafts'){
-        axios.post("http://localhost:8080/api/Mail/draft", `{"guest":"${user}"}`,{
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: false
-        }).then((response) => {console.log(response.data);setContentArr(response.data);})
-          .catch(error => {console.error('Full error:', error);
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              console.error('Error response:', error.response.data);
-              console.error('Error status:', error.response.status);
-              console.error('Error headers:', error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.error('Error request:', error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.error('Error message:', error.message);
-            }});
+        postData("draft");
         setContent(
           <Draft
               jsonDataArray={contentArr}
@@ -108,25 +86,7 @@ function MainPage() {
           />
       );
       }else if(currentPage === 'sent-emails'){
-        axios.post("http://localhost:8080/api/Mail/send", `{"guest":"${user}"}`,{
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: false
-        }).then((response) => {console.log(response.data);setContentArr(response.data);})
-          .catch(error => {console.error('Full error:', error);
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              console.error('Error response:', error.response.data);
-              console.error('Error status:', error.response.status);
-              console.error('Error headers:', error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.error('Error request:', error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.error('Error message:', error.message);
-            }});
+        postData("send");
         setContent(
           <Sent
               setJsonData={setJsonData}
@@ -149,7 +109,7 @@ function MainPage() {
         setContent(<Contacts jsonDataArray={JSON.parse('[{"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}]')} setCurrentPage={setCurrentPage} setJsonData={setJsonData}/>);
     }
       // console.log(inboxArr[0])
-  }, [currentPage]); 
+  }, [contentArr, currentPage]); 
   return (
     <div className='App' style = {{"display":"flex", "justify-content":"center", "align-items":"center"}} >
       <Header/>
@@ -162,5 +122,7 @@ function MainPage() {
     </div>
   );
 }
+
+
 
 export default MainPage;
