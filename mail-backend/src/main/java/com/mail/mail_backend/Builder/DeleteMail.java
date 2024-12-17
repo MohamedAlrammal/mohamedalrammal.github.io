@@ -97,4 +97,3 @@ public class DeleteMail implements Serializable{
         Priority = priority;
     }
 }
-

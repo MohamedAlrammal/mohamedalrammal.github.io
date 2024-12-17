@@ -95,6 +95,8 @@ function MainPage() {
           />
       );
       }else if(currentPage === 'trash'){
+        postData("trash");
+        console.log(contentArr);
         setContent(
           <Trash
               jsonDataArray={contentArr}
@@ -104,6 +106,9 @@ function MainPage() {
       }else if (currentPage === 'show-emails') {
           setContent(<ShowEmail jsonData={jsonData} setCurrentPage={setCurrentPage}/>);
       } else if (currentPage === 'compose') {
+          if(jsonData.type !== "Draft"){
+              setJsonData("{}");
+          }
           setIsComposeOpen(true)
       }else if (currentPage === 'contacts') {
         setContent(<Contacts jsonDataArray={JSON.parse('[{"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}]')} setCurrentPage={setCurrentPage} setJsonData={setJsonData}/>);

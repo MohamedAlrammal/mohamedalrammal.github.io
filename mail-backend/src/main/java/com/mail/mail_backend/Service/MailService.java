@@ -114,7 +114,7 @@ public List<DeleteMail> Trash(person person){
     List<DeleteMail> trashMails=new ArrayList<>();
     for(DeleteMail d:deleteMails) {
         if ((d.isDelete()&&person.getGuest().equals(d.getSender())&& d.getType().equals("sent"))||
-                (d.isDelete()&&person.getGuest().equals(d.getReceiver())&& d.getType().equals("recevied"))||
+                //(d.isDelete()&&person.getGuest().equals(d.getReceiver())&& d.getType().equals("received"))||
                 (d.isDelete()&&person.getGuest().equals(d.getSender())&& d.getType().equals("Draft")))
             trashMails.add(d);
     }
@@ -128,12 +128,12 @@ public List<EmailInfo>deleteIn(DeleteMail deleteMail){
     public List<EmailInfo>deleteSe(DeleteMail deleteMail){
         SaveDelete saveDelete =new SaveDelete(deleteMail);
         person person =new person(deleteMail.getSender());
-        return Inbox(person);
+        return Send(person);
 }
     public List<EmailInfo>deleteDR(DeleteMail deleteMail){
         SaveDelete saveDelete =new SaveDelete(deleteMail);
         person person =new person(deleteMail.getSender());
-        return Inbox(person);
+        return Drafts(person);
 }
 public ContactsUsers addContact(ContactsUsers contactsUsers){
     SaveContacts saveContacts =new SaveContacts(contactsUsers);

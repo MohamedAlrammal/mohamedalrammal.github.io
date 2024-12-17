@@ -26,7 +26,7 @@ export default function Compose({jsonData, setCurrentPage, onClose, user}){
         }))
     );}
     newJsonData.attachments = attachments;
-    newJsonData.sender = user
+    newJsonData.sender = user;
     console.log(newJsonData)
     await axios.post("http://localhost:8080/api/Mail/message", newJsonData,{
       headers: {

@@ -13,8 +13,7 @@ public class DeleteDraft implements DeleteInterface {
         LoadDelete loadDelete = new LoadDelete();
         List<DeleteMail>deleteMails=loadDelete.getDeleteMails();
         for(DeleteMail d:deleteMails) {
-            if(d.isDelete()&& d.getType().equals("Draft")&& d.getSubject().equals(emailInfo.getSubject())&&d.getEmail().equals(emailInfo.getEmail())
-                    &&d.getDate().equals(emailInfo.getDate()))
+            if(d.isDelete()&& d.getType().equals("Draft")&& d.getSubject().equals(emailInfo.getSubject())&&d.getEmail().equals(emailInfo.getEmail()))
                 return false;
         }
         return true;

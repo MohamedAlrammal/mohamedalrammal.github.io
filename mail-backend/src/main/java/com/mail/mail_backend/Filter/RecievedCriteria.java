@@ -17,17 +17,15 @@ public class RecievedCriteria implements EmailCriteria{
         DeleteInterface deleteInterface =new DeleteInbox();
 
         if (emails == null) {
-            return new ArrayList<>(); // Return an empty list if null
+            return new ArrayList<>();
         }
 
         List<EmailInfo> ReEmails = new ArrayList<>();
         for (EmailInfo e : emails) {
-            if (e != null && e.getReceiver() != null&&e.getReceiver().equals(person)&& deleteInterface.FilterTypes(e)) {
+            if (e != null && e.getReceiver() != null&&e.getReceiver().equals(person)&& deleteInterface.FilterTypes(e)&&!e.getType().equals("Draft")) {
                 ReEmails.add(e);
             }
         }
         return ReEmails;
     }
 }
-
-
