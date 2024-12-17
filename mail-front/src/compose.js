@@ -146,7 +146,7 @@ name="email"
     <input name = "files" type='file' id='attachButton' multiple />
   </div>
   <div className="flex justify-end">
-    <input type = "submit" value="Send"></input>
+    <button type = "submit" >Send</button>
   </div>
 </div>
 </form>

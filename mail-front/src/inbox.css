@@ -4,13 +4,14 @@
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  width: 65vw; /* Adjusted width */
+  width: 80vw; /* Adjusted width */
   height: 70vh;
   max-height: 80vh; /* Fixed height for scrollable area */
   overflow-y: auto;
   position: fixed;
   top: 180px;
   left: 250px;
+  backdrop-filter: blur(15px);
 
 
 }
@@ -74,7 +75,7 @@
 .emailSender {
   display: flex;
   align-items: center;
-  width: 15%; /* Adjusted width */
+  width: 20%; /* Adjusted width */
   opacity: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -89,7 +90,7 @@
 
 .emailSubjectHeader,
 .emailSubject {
-  width: 55%; /* Adjusted width */
+  width: 50%; /* Adjusted width */
   padding-right: 16px;
   padding-left: 10px;
   overflow: hidden;
@@ -101,7 +102,7 @@
 
 .emailDateHeader,
 .emailDate {
-  width: 25%; /* Adjusted width */
+  width: 20%; /* Adjusted width */
   text-align: right;
   opacity: 1;
   
@@ -110,7 +111,7 @@
 
 .moreHeader,
 .more-button {
-  width: 5%;
+  width: 10%;
   background: none;
   border: none;
   cursor: pointer;

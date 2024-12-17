@@ -1,23 +1,29 @@
 .card-container {
-  height: 300px; /* Set a fixed height for the scrollable area */
-  width: 300px;
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding: 16px;
-  background-color: #f4f4f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: 80vw; /* Adjusted width */
+  height: 70vh;
+  max-height: 80vh; /* Fixed height for scrollable area */
+  overflow-y: auto;
+  position: fixed;
+  top: 180px;
+  left: 250px;
+  backdrop-filter: blur(15px);
 }
 .card-scroll {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 30px;
 }
 .card {
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  width: 300px;
+  width: 370px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
 }
@@ -51,17 +57,25 @@
 }
 
 .email-text {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  border-radius: 40px;
+  background-color:  #e4e5e689;
   font-size: 1rem;
+  padding-left: 10px;
   color: #555;
+  
 }
 
 .email-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 0.875rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  border-radius: 40px;
+  background-color:  #1a73e8;
+  color: rgb(255, 255, 255);
+  width: 100px;
+  height: 25px;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
@@ -71,10 +85,11 @@
 }
 
 .add-card-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  border-radius: 40px;
+  background-color:  #1a73e8;
+  color: rgb(255, 255, 255);
   padding: 8px 16px;
   cursor: pointer;
   margin-bottom: 16px;

@@ -2,6 +2,7 @@ import SignIn from './SignIn';
 import Register from './Register';
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 import MainPage from './MainPage';
+import './App.css';
 
 function App() {
   const route = createBrowserRouter([
