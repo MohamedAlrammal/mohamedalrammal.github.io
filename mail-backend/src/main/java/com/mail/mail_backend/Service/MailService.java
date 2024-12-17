@@ -4,6 +4,10 @@ import com.mail.mail_backend.Builder.*;
 import com.mail.mail_backend.Contact.ContactsUsers;
 import com.mail.mail_backend.Contact.LoadContacts;
 import com.mail.mail_backend.Contact.SaveContacts;
+import com.mail.mail_backend.Editing.ContactObserver;
+import com.mail.mail_backend.Editing.EditObserver;
+import com.mail.mail_backend.Editing.EditingStation;
+import com.mail.mail_backend.Editing.EditingSubject;
 import com.mail.mail_backend.Filter.*;
 import com.mail.mail_backend.Login.*;
 
@@ -11,6 +15,7 @@ import com.mail.mail_backend.SaveDe.LoadDelete;
 import com.mail.mail_backend.SaveDe.SaveDelete;
 import com.mail.mail_backend.SaveLoad.LoadMessage;
 import com.mail.mail_backend.SaveLoad.SaveMessage;
+import com.mail.mail_backend.Search.*;
 import com.mail.mail_backend.SignIn.Mailuser;
 import com.mail.mail_backend.SignIn.User;
 import org.springframework.stereotype.Service;
@@ -149,6 +154,29 @@ public List<ContactsUsers>contactList(person person){
     }
     return GetContacts;
 }
-
+public List<EmailInfo> Search(EmailInfo emailInfo){
+    LoadMessage loadMessage =new LoadMessage();
+    List<EmailInfo>loads=loadMessage.getEmailsList();
+    SearchHandler checkFrom = new SearchFrom();
+    SearchHandler checkTo = new SearchTo();
+    SearchHandler checkSub= new SearchSub();
+    SearchHandler checkPrio=new SearchPriority();
+    SearchHandler checkDate= new SearchDate();
+    checkFrom.setNextHandler(checkTo);
+    checkTo.setNextHandler(checkSub);
+    checkSub.setNextHandler(checkPrio);
+    checkPrio.setNextHandler(checkDate);
+    System.out.println("ok");
+    return checkFrom.HandleRequest(loads,emailInfo);
+}
+public List <ContactsUsers> reContacts(ContactsUsers contactsUsers) {
+    EditingStation editingSubject =new EditingStation();
+    EditObserver editObserver =new ContactObserver();
+    editingSubject.addObserver(editObserver);
+    editingSubject.setContactsUsers(contactsUsers);
+    LoadContacts loadContacts =new LoadContacts();
+    List<ContactsUsers>loads= loadContacts.getContactsUsers();
+    return loads;
+}
 
 }

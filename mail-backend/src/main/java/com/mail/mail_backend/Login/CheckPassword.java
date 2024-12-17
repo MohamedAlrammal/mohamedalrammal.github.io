@@ -6,7 +6,8 @@ public class CheckPassword implements SupportHandler {
     private SupportHandler nextHandler;
     @Override
     public void setNextHandler(SupportHandler nextHandler) {
-      this.nextHandler=nextHandler;
+
+        this.nextHandler=nextHandler;
     }
     @Override
     public String HandleRequest(Request request) {

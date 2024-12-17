@@ -90,6 +90,14 @@ public class MailController {
     public List<ContactsUsers> getContact(@RequestBody person person){
         return mailService.contactList(person);
     }
+    @PostMapping("/search")
+     public List<EmailInfo> search(@RequestBody EmailInfo emailInfo){
+        return mailService.Search(emailInfo);
+    }
+    @PostMapping("/edit")
+    public List<ContactsUsers>edit(@RequestBody ContactsUsers contactsUsers){
+        return mailService.reContacts(contactsUsers);
+    }
 
 
 

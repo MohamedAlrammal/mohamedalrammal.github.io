@@ -19,7 +19,7 @@ public class EditingStation implements EditingSubject{
               e.update(contactsUsers);
         }
     }
-    public void setWeather(ContactsUsers contactsUsers) {
+    public void setContactsUsers(ContactsUsers contactsUsers) {
         this.contactsUsers = contactsUsers;
          notifyObservers();
     }

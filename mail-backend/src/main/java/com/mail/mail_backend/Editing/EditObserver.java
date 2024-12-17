@@ -4,5 +4,5 @@ import com.mail.mail_backend.Builder.EmailInfo;
 import com.mail.mail_backend.Contact.ContactsUsers;
 
 public interface EditObserver {
-    ContactsUsers update(ContactsUsers contactsUsers);
+    void update(ContactsUsers contactsUsers);
 }
