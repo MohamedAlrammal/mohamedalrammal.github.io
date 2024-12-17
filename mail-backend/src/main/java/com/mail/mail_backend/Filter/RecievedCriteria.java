@@ -29,5 +29,3 @@ public class RecievedCriteria implements EmailCriteria{
         return ReEmails;
     }
 }
-
-

@@ -6,7 +6,7 @@ import java.util.List;
 import com.mail.mail_backend.Builder.EmailInfo;
 
 public class DraftCriteria implements EmailCriteria{
-    private String person;
+	private String person;
 
     public DraftCriteria(String person) {
         this.person = person;
@@ -17,7 +17,7 @@ public class DraftCriteria implements EmailCriteria{
         DeleteInterface deleteInterface =new DeleteDraft();
         List<EmailInfo>DraftEm=new ArrayList<>();
         for(EmailInfo e: emails){
-            if(e.getSender().equals(person) && e.getType().equals("Draft")&& deleteInterface.FilterTypes(e))
+            if(e != null && e.getSender() != null && e.getSender().equals(person) && e.getType().equals("Draft")&& deleteInterface.FilterTypes(e))
                 DraftEm.add(e);
         }
         return DraftEm;
