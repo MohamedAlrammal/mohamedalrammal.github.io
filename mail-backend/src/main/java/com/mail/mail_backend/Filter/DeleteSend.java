@@ -15,7 +15,11 @@ public class DeleteSend implements DeleteInterface {
         List<DeleteMail>deleteMails=loadDelete.getDeleteMails();
         for(DeleteMail d:deleteMails) {
             if(d.isDelete()&& d.getType().equals("sent")&& d.getSubject().equals(emailInfo.getSubject())&&d.getEmail().equals(emailInfo.getEmail())
+<<<<<<< Updated upstream
                     &&d.getDate().equals(emailInfo.getDate()))
+=======
+                    )
+>>>>>>> Stashed changes
                 return false;
         }
         return true;

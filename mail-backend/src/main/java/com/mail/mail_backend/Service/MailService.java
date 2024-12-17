@@ -114,7 +114,11 @@ public List<DeleteMail> Trash(person person){
     List<DeleteMail> trashMails=new ArrayList<>();
     for(DeleteMail d:deleteMails) {
         if ((d.isDelete()&&person.getGuest().equals(d.getSender())&& d.getType().equals("sent"))||
+<<<<<<< Updated upstream
                 (d.isDelete()&&person.getGuest().equals(d.getReceiver())&& d.getType().equals("recevied"))||
+=======
+                (d.isDelete()&&person.getGuest().equals(d.getReceiver()))||
+>>>>>>> Stashed changes
                 (d.isDelete()&&person.getGuest().equals(d.getSender())&& d.getType().equals("Draft")))
             trashMails.add(d);
     }

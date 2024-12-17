@@ -14,8 +14,12 @@ public class DeleteInbox implements DeleteInterface {
     LoadDelete loadDelete = new LoadDelete();
     List<DeleteMail>deleteMails=loadDelete.getDeleteMails();
         for(DeleteMail d:deleteMails) {
+<<<<<<< Updated upstream
             if(d.isDelete()&& d.getType().equals("recevier")&& d.getSubject().equals(emailInfo.getSubject())&&d.getEmail().equals(emailInfo.getEmail())
               &&d.getDate().equals(emailInfo.getDate()))
+=======
+            if(d.isDelete()&& d.getSubject().equals(emailInfo.getSubject())&&d.getEmail().equals(emailInfo.getEmail()))
+>>>>>>> Stashed changes
                  return false;
         }
         return true;
