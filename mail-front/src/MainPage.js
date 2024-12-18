@@ -2,7 +2,7 @@ import './App.css';
 import Inbox from './inbox';
 import Compose from './compose'
 import ShowEmail from './show-email';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, use} from 'react';
 import Draft from './draft';
 import Sent from './sentEmails';
 import Trash from './trash';
@@ -28,9 +28,13 @@ function MainPage() {
   //   <><Compose /></>
   // );
   //inboxArr
+    const [name, setName] = useState("From");
     const user = localStorage.getItem('email');
     const [contentArr, setContentArr] = useState(JSON.parse('[]'))
     const [contactArr, setContactArr] = useState(JSON.parse('[]'));
+    const [isSearch, setIsSearch] = useState(false);
+    
+    const [count, setCount] = useState(2);
     //testing data 
     //setContentArr(JSON.parse('[{"sender":"ahmed", "subject":"today is the day of  today", "date":"2-10-2024", "type":"received"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}, {"sender":"ahmed", "subject":"yesterday is the day of  the day before", "date":"2-10-2024", "type":"drafts"}]'))
     const [currentPage, setCurrentPage] = useState("inbox");
@@ -46,7 +50,13 @@ function MainPage() {
     const handleCloseCompose = () => {
       setIsComposeOpen(false);
     };
-    
+    const increment = () => {
+      if (count < 4) {
+        setCount(count + 1);
+      }else if(count === 4){
+        setCount(1);
+      }
+    };
     //sending data
     const postData = async (string) => {
       try {
@@ -67,6 +77,7 @@ function MainPage() {
      useEffect(() => {
       if (currentPage === 'inbox') {
         //reload all of the josndata in the content array from the backend
+        setName("From");
           postData("inbox");
           setContent(
               <Inbox
@@ -77,16 +88,19 @@ function MainPage() {
           );
          // console.log("from the app.js"+typeof setJsonData)
       }else if(currentPage === 'drafts'){
+        setName("To");
         postData("draft");
         setContent(
           <Draft
-              jsonDataArray={contentArr}
               setCurrentPage={setCurrentPage}
               setJsonData={setJsonData}
+              jsonDataArray={contentArr}
           />
       );
       }else if(currentPage === 'sent-emails'){
-        postData("send");
+        setName("To");
+       if(isSearch === false) {postData("send");}
+       console.log(isSearch)
         setContent(
           <Sent
               setJsonData={setJsonData}
@@ -107,8 +121,9 @@ function MainPage() {
           setContent(<ShowEmail jsonData={jsonData} setCurrentPage={setCurrentPage}/>);
       } else if (currentPage === 'compose') {
           if(jsonData.type !== "Draft"){
-              setJsonData("{}");
+              setJsonData({});
           }
+          console.log(jsonData);
           setIsComposeOpen(true)
       }else if (currentPage === 'contacts') {
         setContent(<Contacts jsonDataArray={JSON.parse('[{"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}, {"name":"Ahmed", "emails":["email@email.com"]}]')} setCurrentPage={setCurrentPage} setJsonData={setJsonData}/>);
@@ -119,10 +134,10 @@ function MainPage() {
     <div className='App' style = {{"display":"flex", "justify-content":"center", "align-items":"center"}} >
       <Header/>
       {Content}
-      <Navigation setCurrentPage={setCurrentPage}/>
-      <FilterButtons setContentArray = {setContentArr} setCurrentPage={setCurrentPage} jsonData={jsonData}/>
+      <Navigation setCurrentPage={setCurrentPage} setIsSearch={setIsSearch}/>
+      {(currentPage !== "trash" && currentPage !== 'contacts')?<FilterButtons setContentArray = {setContentArr} setCurrentPage={setCurrentPage} jsonData={jsonData} name={name} user={user} setCount={setCount} count={count} increment={increment} setIsSearch={setIsSearch}/>:null}
       <ComposeButton onClick={handleComposeClick} />
-      {isComposeOpen && <Compose jsonData={jsonData} setCurrentPage={setCurrentPage} onClose={handleCloseCompose}  user={user}/>}
+      {isComposeOpen && <Compose jsonData={jsonData} setCurrentPage={setCurrentPage} onClose={handleCloseCompose}  setJsonData={setJsonData} user={user}/>}
     
     </div>
   );
