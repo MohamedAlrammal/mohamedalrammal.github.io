@@ -4,6 +4,7 @@ import './contacts.css';
 
   const Contacts = ({ jsonDataArray,setCurrentPage,setJsonData }) => {
   const [showInputBox, setShowInputBox] = useState(false);
+  const user = localStorage.getItem('email');
   const [cards, setCards] = useState(jsonDataArray);
   const [newCardName, setNewCardName] = useState("");
   const [newCardEmails, setNewCardEmails] = useState("");
@@ -11,12 +12,21 @@ import './contacts.css';
   const handleAddCard = () => {
     if (newCardName && newCardEmails) {
       const emailsArray = newCardEmails.split(",").map(email => email.trim());
-      setCards([...cards, { name: newCardName, emails: emailsArray }]);
-      const newJsonContact = {name: newCardName, emails:emailsArray}
+      setCards([...cards, {  admin:user , name: newCardName, emails: emailsArray }]);
+      const newJsonContact = { admin:user , name: newCardName, emails:emailsArray};
       setNewCardName("");
       setNewCardEmails("");
       setShowInputBox(false);
       //send the newJsonContact to the backend to add it to the contacts file
+
+      fetch("http://localhost:8080/api/Mail/addContact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newJsonContact),
+      })
+      .then(response => response.json())
+      .then(data => console.log("Contact added:", data))
+      .catch(error => console.error("Error:", error));
     }
   };
   function handleCompose(e){

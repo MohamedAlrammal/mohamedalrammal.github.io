@@ -4,6 +4,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FiMoreVertical } from "react-icons/fi";
 import DropdownButton from './DropdownButton';
 import axios from 'axios';
+import { useState } from 'react';
 /**
  * @param jsonDataArray contains the json data for emails
  */
@@ -31,6 +32,11 @@ export default function Draft({jsonDataArray, setCurrentPage, setJsonData}){
 }
 
 function Draft_button({jsonData, setCurrentPage, setJsonData}){
+  // const [key, setKey] = useState(0);
+
+  // const handleRefresh = () => {
+  //   setKey((prev) => prev + 1); // Update key to re-mount component
+  // };
 
   const postData = async (string, jsonData) => {
     try {
@@ -48,18 +54,20 @@ function Draft_button({jsonData, setCurrentPage, setJsonData}){
   function handleTrashButton(jsonData, setCurrentPage){
     //sends the json data of the trash email to the backend to delete it from the inbox and put it in the trash
     postData('delete', jsonData)
-    setCurrentPage('draft');
+    setCurrentPage("drafts");
+    setCurrentPage("inbox");
+    setCurrentPage("drafts");
 }
 
 
       return <>
-        <tr className="border-b emailButton" onClick={() => {handleEmailButton(setJsonData,setCurrentPage, jsonData);}}>
+        <tr className="border-b emailButton" onClick={() => {handleEmailButton(setJsonData,setCurrentPage, jsonData);}} /*key={key}*/>
               <td className="p-2 emailSender">
                 <span className="sender-name" >{jsonData.receiver}</span>
               </td>
               <td className="p-2 emailSubject">{jsonData.subject}</td>
               <td className="p-2 emailDate">{jsonData.date}</td>
-              <div onClick={(e) => {e.stopPropagation();const jsonNew = {...jsonData, delete:true};console.log(jsonNew);handleTrashButton(jsonNew,setCurrentPage)}}><FontAwesomeIcon icon={faTrash} /></div>
+              <div onClick={(e) => {e.stopPropagation();const jsonNew = {...jsonData, delete:true};console.log(jsonNew);handleTrashButton(jsonNew,setCurrentPage);/*handleRefresh();*/}}><FontAwesomeIcon icon={faTrash} /></div>
               <td className="p-2">
               <DropdownButton jsonData={jsonData} setJsonData={setJsonData}/>
               </td>

@@ -25,16 +25,8 @@ export default function ShowEmail({jsonData, setCurrentPage}){
   }
   
   return <div className='page'>
-         <button className='back' onClick={() => {handleBackButton()}}>Back</button>
-         <div className='sender'>
-          from: <strong>{jsonData.sender}</strong>
-         </div>
-         <div className='receiver'>
-          To: <strong>{jsonData.receiver}</strong>
-          </div>
-          <div className='subject'>
-          Subject: <strong>{jsonData.subject}</strong>
-          </div>
+         <button className='back' onClick={() => {handleBackButton()}}>back</button>
+         <h1 className='subject'>{jsonData.subject}</h1>
           <p className='email'>{jsonData.email}</p>
           <h4 className='attachments'>Attachments:</h4>
           <ul>

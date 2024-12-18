@@ -1,8 +1,10 @@
 import './compose.css';
 import axios from 'axios';
+import { format } from 'date-fns';
+
 axios.defaults.withCredentials = false;
 
-export default function Compose({jsonData, setCurrentPage, onClose, user}){
+export default function Compose({jsonData, setCurrentPage, onClose, user, setJsonData}){
   let path = "http://localhost:8080/api/Mail";
   async function handleBack(e){
     
@@ -15,6 +17,7 @@ export default function Compose({jsonData, setCurrentPage, onClose, user}){
     delete newJsonData.files
     newJsonData.type = 'Draft'
     newJsonData.priority = 2
+    newJsonData.date = format(new Date(), 'yyyy-MM-dd');
     let attachments = []
     if(form.files !== undefined){const files = Array.from(form.files.files);
      attachments = await Promise.all(
@@ -33,7 +36,7 @@ export default function Compose({jsonData, setCurrentPage, onClose, user}){
         'Content-Type': 'application/json',
       },
       withCredentials: false
-    }).then(response => {console.log('response have been received')})
+    }).then(response => {console.log('response has been received')})
       .catch(error => {console.error('Full error:', error);
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -49,7 +52,6 @@ export default function Compose({jsonData, setCurrentPage, onClose, user}){
         }});
      //newJsonData.attachments = ; //fill it with attachments
      //send this newJsonData to the backend to store it in the drafts ***&&&&****
-    
     setCurrentPage('drafts');
     
   }
@@ -76,13 +78,14 @@ export default function Compose({jsonData, setCurrentPage, onClose, user}){
    );
     delete newJsonData.files
     newJsonData.sender = user
+    newJsonData.date = format(new Date(), 'yyyy-MM-dd');
     console.log(newJsonData)
     await axios.post("http://localhost:8080/api/Mail/message", newJsonData,{
       headers: {
         'Content-Type': 'application/json',
       },
       withCredentials: false
-    }).then(response => {console.log('response have been received')})
+    }).then(response => {console.log('response has been received')})
       .catch(error => {console.error('Full error:', error);
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -99,6 +102,9 @@ export default function Compose({jsonData, setCurrentPage, onClose, user}){
      //newJsonData.attachments = ; //fill it with attachments
      //send this newJsonData to the backend to store it in the sent emails ***&&&&****
     setCurrentPage('sent-emails');
+    onClose();
+
+    
   }
 
   const encodeToBase64 = (file) => {
@@ -124,6 +130,7 @@ name='receiver'
       type="text"
       placeholder="To"
       value={jsonData.receiver}
+      onChange={(e) => {setJsonData({...jsonData, receiver:e.target.value})}}
     />
   </div>
   <div className="mb-4">
@@ -132,6 +139,7 @@ name='subject'
       type="text"
       placeholder="Subject"
       value={jsonData.subject}
+      onChange={(e) => {setJsonData({...jsonData, subject:e.target.value})}}
     />
   </div>
   <div className="mb-4">
@@ -139,6 +147,7 @@ name='subject'
       placeholder="Message"
 name="email"
       value={jsonData.email}
+      onChange={(e) => {setJsonData({...jsonData, email:e.target.value})}}
       rows="6"
     ></textarea>
   </div>
@@ -146,7 +155,7 @@ name="email"
     <input name = "files" type='file' id='attachButton' multiple />
   </div>
   <div className="flex justify-end">
-    <button type = "submit" >Send</button>
+    <input type = "submit" value="Send"></input>
   </div>
 </div>
 </form>
