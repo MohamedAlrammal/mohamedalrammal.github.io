@@ -102,6 +102,14 @@ public class MailController {
     public List<ContactsUsers>deleteCon(@RequestBody ContactsUsers contactsUsers){
         return mailService.DeContacts(contactsUsers);
     }
+    @PostMapping("/seContact")
+    public ContactsUsers searchCon(@RequestBody ContactsUsers contactsUsers){
+        return mailService.searchCo(contactsUsers);
+    }
+    @PostMapping("/sortCo")
+    public List <ContactsUsers> sortco(@RequestBody person person){
+        return mailService.sortCo(person);
+    }
 
 
 

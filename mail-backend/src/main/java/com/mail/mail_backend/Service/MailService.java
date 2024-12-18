@@ -200,5 +200,27 @@ public List <ContactsUsers> reContacts(ContactsUsers contactsUsers) {
         }
         return contactsUsersList;
     }
+    public ContactsUsers searchCo(ContactsUsers contactsUsers){
+        LoadContacts loadContacts = new LoadContacts();
+        List<ContactsUsers>contactsUsersList=loadContacts.getContactsUsers();
+        ContactsUsers GContacts;
+        for(ContactsUsers c:contactsUsersList){
+            if(contactsUsers.getAdmin().equals(c.getAdmin()) && contactsUsers.getName().equals(c.getName()))
+             return GContacts=new ContactsUsers(c.getAdmin(),c.getName(),c.getAccounts());
+        }
+        return null;
+    }
+    public List<ContactsUsers> sortCo(person person){
+        LoadContacts loadContacts = new LoadContacts();
+        List<ContactsUsers>contactsUsersList=loadContacts.getContactsUsers();
+        List<ContactsUsers>l=new ArrayList<>();
+        for(ContactsUsers c: contactsUsersList){
+            if(c.getAdmin().equals(person.getGuest()))
+                l.add(c);
+        }
+        l.sort(
+                Comparator.comparing(ContactsUsers::getName));
+        return l;
+    }
 
 }
