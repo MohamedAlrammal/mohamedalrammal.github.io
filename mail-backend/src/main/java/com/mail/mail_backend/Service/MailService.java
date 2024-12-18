@@ -1,13 +1,8 @@
 package com.mail.mail_backend.Service;
 
 import com.mail.mail_backend.Builder.*;
-import com.mail.mail_backend.Contact.ContactsUsers;
-import com.mail.mail_backend.Contact.LoadContacts;
-import com.mail.mail_backend.Contact.SaveContacts;
-import com.mail.mail_backend.Editing.ContactObserver;
-import com.mail.mail_backend.Editing.EditObserver;
-import com.mail.mail_backend.Editing.EditingStation;
-import com.mail.mail_backend.Editing.EditingSubject;
+import com.mail.mail_backend.Contact.*;
+import com.mail.mail_backend.Editing.*;
 import com.mail.mail_backend.Filter.*;
 import com.mail.mail_backend.Login.*;
 
@@ -161,22 +156,49 @@ public List<EmailInfo> Search(EmailInfo emailInfo){
     SearchHandler checkTo = new SearchTo();
     SearchHandler checkSub= new SearchSub();
     SearchHandler checkPrio=new SearchPriority();
+    SearchHandler checkHas= new HasAttachments();
     SearchHandler checkDate= new SearchDate();
     checkFrom.setNextHandler(checkTo);
     checkTo.setNextHandler(checkSub);
     checkSub.setNextHandler(checkPrio);
-    checkPrio.setNextHandler(checkDate);
+    checkPrio.setNextHandler(checkHas);
+    checkHas.setNextHandler(checkDate);
     System.out.println("ok");
     return checkFrom.HandleRequest(loads,emailInfo);
 }
 public List <ContactsUsers> reContacts(ContactsUsers contactsUsers) {
+    if (contactsUsers == null || contactsUsers.getAdmin() == null || contactsUsers.getAccounts() == null) {
+        throw new IllegalArgumentException("ContactsUsers object is invalid or incomplete.");
+    }
     EditingStation editingSubject =new EditingStation();
     EditObserver editObserver =new ContactObserver();
     editingSubject.addObserver(editObserver);
     editingSubject.setContactsUsers(contactsUsers);
     LoadContacts loadContacts =new LoadContacts();
     List<ContactsUsers>loads= loadContacts.getContactsUsers();
-    return loads;
+    List<ContactsUsers> contactsUsersList= new ArrayList<>();
+    for(ContactsUsers c:loads){
+        if(c.getAdmin().equals(contactsUsers.getAdmin()))
+            contactsUsersList.add(c);
+    }
+   return contactsUsersList;
 }
+    public List <ContactsUsers> DeContacts(ContactsUsers contactsUsers) {
+        if (contactsUsers == null || contactsUsers.getAdmin() == null || contactsUsers.getAccounts() == null) {
+            throw new IllegalArgumentException("ContactsUsers object is invalid or incomplete.");
+        }
+        EditingStation editingSubject =new EditingStation();
+        EditObserver deObserver =new DeleteObserver();
+        editingSubject.addObserver(deObserver);
+        editingSubject.setContactsUsers(contactsUsers);
+        LoadContacts loadContacts =new LoadContacts();
+        List<ContactsUsers>loads= loadContacts.getContactsUsers();
+        List<ContactsUsers> contactsUsersList= new ArrayList<>();
+        for(ContactsUsers c:loads){
+            if(c.getAdmin().equals(contactsUsers.getAdmin()))
+                contactsUsersList.add(c);
+        }
+        return contactsUsersList;
+    }
 
 }

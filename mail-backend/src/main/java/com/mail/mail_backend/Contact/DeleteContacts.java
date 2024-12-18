@@ -5,81 +5,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteContacts {
-    /**
-     * Deletes a specific contact from the Contacts.ser file
-     *
-     * @param adminToDelete The admin name of the contact to be deleted
-     * @param nameToDelete The name of the contact to be deleted
-     * @return boolean indicating whether the deletion was successful
-     */
-    public boolean deleteContact(String adminToDelete, String nameToDelete) {
+    public boolean deleteContact(ContactsUsers contactToDelete) {
         String fileName = "Contacts.ser";
-        String tempFileName = "Contacts_temp.ser";
-        boolean contactDeleted = false;
+        List<ContactsUsers> contactsList = new ArrayList<>();
+        boolean contactRemoved = false;
 
-        try {
-            // Load existing contacts
-            List<ContactsUsers> contactsList = loadContacts();
+        // First, read existing contacts
+        try (FileInputStream fileIn = new FileInputStream(fileName);
+             BufferedInputStream bufferIn = new BufferedInputStream(fileIn);
+             ObjectInputStream objectIn = new ObjectInputStream(bufferIn)) {
 
-            // Create a list to store contacts to be written (excluding the one to delete)
-            List<ContactsUsers> updatedContacts = new ArrayList<>();
-
-            // Filter out the contact to be deleted
-            for (ContactsUsers contact : contactsList) {
-                if (!(contact.getAdmin().equals(adminToDelete) &&
-                        contact.getName().equals(nameToDelete))) {
-                    updatedContacts.add(contact);
-                } else {
-                    contactDeleted = true; // Mark that a contact was found and deleted
+            while (true) {
+                try {
+                    ContactsUsers contact = (ContactsUsers) objectIn.readObject();
+                    // Add to list if not the contact to be deleted
+                    if (!contact.equals(contactToDelete)) {
+                        contactsList.add(contact);
+                    } else {
+                        contactRemoved = true;
+                    }
+                } catch (EOFException e) {
+                    break;
                 }
             }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
+            return false;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error while reading contacts: " + e.getMessage());
+            return false;
+        }
 
-            // If no contact was found to delete, return false
-            if (!contactDeleted) {
-                return false;
-            }
-
-            // Write updated contacts to a new file
-            try (FileOutputStream fileOut = new FileOutputStream(tempFileName);
+        // If contact was found, rewrite the file without the deleted contact
+        if (contactRemoved) {
+            try (FileOutputStream fileOut = new FileOutputStream(fileName);
                  BufferedOutputStream bufferOut = new BufferedOutputStream(fileOut);
                  ObjectOutputStream objectOut = new ObjectOutputStream(bufferOut)) {
 
-                for (ContactsUsers contact : updatedContacts) {
+                for (ContactsUsers contact : contactsList) {
                     objectOut.writeObject(contact);
                 }
-            }
+                System.out.println("Contact deleted successfully!");
+                return true;
 
-            // Replace the original file with the temp file
-            File originalFile = new File(fileName);
-            File tempFile = new File(tempFileName);
-
-            // Delete the original file
-            if (originalFile.delete()) {
-                // Rename the temp file to the original filename
-                if (tempFile.renameTo(originalFile)) {
-                    return true;
-                } else {
-                    System.err.println("Failed to rename temp file");
-                    return false;
-                }
-            } else {
-                System.err.println("Failed to delete original file");
+            } catch (IOException e) {
+                System.err.println("Error while saving updated contacts: " + e.getMessage());
                 return false;
             }
-
-        } catch (IOException e) {
-            System.err.println("Error during contact deletion: " + e.getMessage());
-            return false;
         }
+
+        System.out.println("Contact not found.");
+        return false;
     }
 
-    /**
-     * Loads contacts from the serialized file
-     *
-     * @return List of ContactsUsers loaded from the file
-     */
-    private List<ContactsUsers> loadContacts() {
-        LoadContacts loadContacts = new LoadContacts();
-        return loadContacts.retrieveContact();
+    // Overloaded method to delete contact by specific attributes
+    public boolean deleteContact(String admin, String name, List<String> accounts) {
+        ContactsUsers contactToDelete = new ContactsUsers(admin, name, accounts);
+        return deleteContact(contactToDelete);
     }
 }

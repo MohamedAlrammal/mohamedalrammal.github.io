@@ -98,6 +98,10 @@ public class MailController {
     public List<ContactsUsers>edit(@RequestBody ContactsUsers contactsUsers){
         return mailService.reContacts(contactsUsers);
     }
+    @PostMapping("/decontact")
+    public List<ContactsUsers>deleteCon(@RequestBody ContactsUsers contactsUsers){
+        return mailService.DeContacts(contactsUsers);
+    }
 
 
 

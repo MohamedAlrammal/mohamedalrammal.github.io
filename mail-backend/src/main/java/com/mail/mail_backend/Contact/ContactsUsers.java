@@ -2,6 +2,7 @@ package com.mail.mail_backend.Contact;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactsUsers implements Serializable {
     private static final long serialVersionUID = 3915522481892032731L;
@@ -38,4 +39,20 @@ public class ContactsUsers implements Serializable {
     public void setAccounts(List<String> accounts) {
         Accounts = accounts;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactsUsers that = (ContactsUsers) o;
+        return Objects.equals(Admin, that.Admin) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(Accounts, that.Accounts);
+    }
+
+    // Override hashCode() for use in hash-based collections
+    @Override
+    public int hashCode() {
+        return Objects.hash(Admin, name, Accounts);
+    }
+
 }
