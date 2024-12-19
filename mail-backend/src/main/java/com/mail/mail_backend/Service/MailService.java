@@ -1,23 +1,45 @@
 package com.mail.mail_backend.Service;
 
-import com.mail.mail_backend.Builder.*;
-import com.mail.mail_backend.Contact.*;
-import com.mail.mail_backend.Editing.*;
-import com.mail.mail_backend.Filter.*;
-import com.mail.mail_backend.Login.*;
-
-import com.mail.mail_backend.SaveDe.LoadDelete;
-import com.mail.mail_backend.SaveDe.SaveDelete;
-import com.mail.mail_backend.SaveLoad.LoadMessage;
-import com.mail.mail_backend.SaveLoad.SaveMessage;
-import com.mail.mail_backend.Search.*;
-import com.mail.mail_backend.SignIn.Mailuser;
-import com.mail.mail_backend.SignIn.User;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.mail.mail_backend.Builder.DeleteMail;
+import com.mail.mail_backend.Builder.EmailInfo;
+import com.mail.mail_backend.Builder.attributeSearch;
+import com.mail.mail_backend.Builder.person;
+import com.mail.mail_backend.Contact.ContactsUsers;
+import com.mail.mail_backend.Contact.LoadContacts;
+import com.mail.mail_backend.Contact.SaveContacts;
+import com.mail.mail_backend.Editing.ContactObserver;
+import com.mail.mail_backend.Editing.DeleteObserver;
+import com.mail.mail_backend.Editing.EditObserver;
+import com.mail.mail_backend.Editing.EditingStation;
+import com.mail.mail_backend.Filter.DraftCriteria;
+import com.mail.mail_backend.Filter.EmailCriteria;
+import com.mail.mail_backend.Filter.RecievedCriteria;
+import com.mail.mail_backend.Filter.SenderCriteria;
+import com.mail.mail_backend.Login.CheckEmails;
+import com.mail.mail_backend.Login.CheckNames;
+import com.mail.mail_backend.Login.CheckPassword;
+import com.mail.mail_backend.Login.Request;
+import com.mail.mail_backend.Login.SupportHandler;
+import com.mail.mail_backend.SaveDe.LoadDelete;
+import com.mail.mail_backend.SaveDe.SaveDelete;
+import com.mail.mail_backend.SaveDe.delmessage;
+import com.mail.mail_backend.SaveLoad.LoadMessage;
+import com.mail.mail_backend.SaveLoad.SaveMessage;
+import com.mail.mail_backend.Search.HasAttachments;
+import com.mail.mail_backend.Search.SearchDate;
+import com.mail.mail_backend.Search.SearchFrom;
+import com.mail.mail_backend.Search.SearchHandler;
+import com.mail.mail_backend.Search.SearchPriority;
+import com.mail.mail_backend.Search.SearchSub;
+import com.mail.mail_backend.Search.SearchTo;
+import com.mail.mail_backend.SignIn.Mailuser;
+import com.mail.mail_backend.SignIn.User;
 
 @Service
 public class MailService {
@@ -76,14 +98,14 @@ public List<EmailInfo> SortedInbox(person person){
     return InboxList;
 }
     public List<EmailInfo> SortedSend(person person){
-        List<EmailInfo>SendList=Inbox(person);
+        List<EmailInfo>SendList=Send(person);
         SendList.sort(
                 Comparator.comparing(EmailInfo::getPriority).reversed()
         );
         return SendList;
     }
     public List<EmailInfo> SortedDraft(person person){
-        List<EmailInfo>DraftList=Inbox(person);
+        List<EmailInfo>DraftList=Drafts(person);
         DraftList.sort(
                 Comparator.comparing(EmailInfo::getPriority).reversed()
         );
@@ -107,6 +129,22 @@ public DeleteMail deleteMes(DeleteMail deleteMail){
     return new DeleteMail(deleteMail.getSender()
             ,deleteMail.getReceiver(),deleteMail.getEmail(),deleteMail.getType(),deleteMail.getSubject(), deleteMail.getDate(),
             deleteMail.getAttachment(),  deleteMail.isDelete(),deleteMail.getPriority());
+}
+public List<DeleteMail> restore(person person,DeleteMail deleteMail){
+
+delmessage delmessage =new delmessage();
+delmessage.delete(deleteMail);
+    LoadDelete loadDelete=new LoadDelete();
+    List<DeleteMail> deleteMails=loadDelete.getDeleteMails();
+    List<DeleteMail> trashMails=new ArrayList<>();
+    for(DeleteMail d:deleteMails) {
+        if ((d.isDelete()&&person.getGuest().equals(d.getSender())&& d.getType().equals("sent"))||
+                (d.isDelete()&&person.getGuest().equals(d.getReceiver()))||
+                (d.isDelete()&&person.getGuest().equals(d.getSender())&& d.getType().equals("Draft")))
+            trashMails.add(d);
+    }
+    return trashMails;
+
 }
 public List<DeleteMail> Trash(person person){
     LoadDelete loadDelete=new LoadDelete();
@@ -149,7 +187,7 @@ public List<ContactsUsers>contactList(person person){
     }
     return GetContacts;
 }
-public List<EmailInfo> Search(EmailInfo emailInfo){
+public List<EmailInfo> Search(attributeSearch attributeSearch){
     LoadMessage loadMessage =new LoadMessage();
     List<EmailInfo>loads=loadMessage.getEmailsList();
     SearchHandler checkFrom = new SearchFrom();
@@ -164,10 +202,10 @@ public List<EmailInfo> Search(EmailInfo emailInfo){
     checkPrio.setNextHandler(checkHas);
     checkHas.setNextHandler(checkDate);
     System.out.println("ok");
-    return checkFrom.HandleRequest(loads,emailInfo);
+    return checkFrom.HandleRequest(loads,attributeSearch);
 }
 public List <ContactsUsers> reContacts(ContactsUsers contactsUsers) {
-    if (contactsUsers == null || contactsUsers.getAdmin() == null || contactsUsers.getAccounts() == null) {
+    if (contactsUsers == null || contactsUsers.getAdmin() == null || contactsUsers.getemails() == null) {
         throw new IllegalArgumentException("ContactsUsers object is invalid or incomplete.");
     }
     EditingStation editingSubject =new EditingStation();
@@ -184,7 +222,7 @@ public List <ContactsUsers> reContacts(ContactsUsers contactsUsers) {
    return contactsUsersList;
 }
     public List <ContactsUsers> DeContacts(ContactsUsers contactsUsers) {
-        if (contactsUsers == null || contactsUsers.getAdmin() == null || contactsUsers.getAccounts() == null) {
+        if (contactsUsers == null || contactsUsers.getAdmin() == null || contactsUsers.getemails() == null) {
             throw new IllegalArgumentException("ContactsUsers object is invalid or incomplete.");
         }
         EditingStation editingSubject =new EditingStation();
@@ -206,7 +244,7 @@ public List <ContactsUsers> reContacts(ContactsUsers contactsUsers) {
         ContactsUsers GContacts;
         for(ContactsUsers c:contactsUsersList){
             if(contactsUsers.getAdmin().equals(c.getAdmin()) && contactsUsers.getName().equals(c.getName()))
-             return GContacts=new ContactsUsers(c.getAdmin(),c.getName(),c.getAccounts());
+             return GContacts=new ContactsUsers(c.getAdmin(),c.getName(),c.getemails());
         }
         return null;
     }

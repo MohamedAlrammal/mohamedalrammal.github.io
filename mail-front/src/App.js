@@ -1,6 +1,5 @@
-import './App.css';
-import SignIn from './components/signIn page/signIn';
-import Register from './components/Register Page/Register';
+import SignIn from './SignIn';
+import Register from './Register';
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 import MainPage from './MainPage';
 

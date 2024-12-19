@@ -1,36 +1,56 @@
 .filter-container {
-    position: fixed;
-    top:10px;
-    left:30vw;
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between buttons */
-    margin: 100px 60px; /* Margin above and below the filter bar */
+  position: fixed;
+  top:10px;
+  left:30vw;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+  margin: 100px 60px; /* Margin above and below the filter bar */
 }
 
 .filter-button {
-    padding: 5px 12px;
-    background-color: #f1f3f4;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 5px 12px;
+  background-color: #f4f4f4b4;
+  backdrop-filter: blur(30px);
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  font-size: 14px;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filter-button select {
-    border: none;
-    background: transparent;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    outline: none;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  outline: none;
 }
 
 .filter-button:hover {
-    background-color: #e9ecef;
-    border-color: #ccc;
+  background-color: #838383;
+  border-color: #ccc;
+}
+
+.search-button{
+  width: 100px;
+  height: 30px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-button:hover{
+  background-color: #8b9caf;
+  transform: translateY(-2px);
 }

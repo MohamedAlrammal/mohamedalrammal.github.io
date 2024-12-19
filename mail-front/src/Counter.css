@@ -1,0 +1,36 @@
+.counter-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f4f4f4;
+  padding: 1px;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  width: 20px;
+  margin: 10px auto;
+}
+
+.counter-value {
+  font-size: 8px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.increment-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.increment-button:hover {
+  background-color: #45a049;
+}
+
+.increment-button:active {
+  background-color: #388e3c;
+}

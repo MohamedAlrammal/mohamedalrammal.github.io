@@ -1,22 +1,18 @@
 package com.mail.mail_backend.Builder;
 
-import com.mail.mail_backend.SignIn.User;
-
-import java.io.Serializable;
 import java.util.List;
 
-public class EmailInfo implements Serializable {
-    private static final long serialVersionUID = 3915522481892032731L;
+public class attributeSearch {
     private String Sender;
     private String Receiver;
     private String email;
     private String Type;
     private String Subject;
     private String Date;
-    private List<Attachments> Attachment;
+    private boolean Attachment;
     private int Priority;
 
-    public EmailInfo(String sender, String receiver, String email, String type, String subject, String date, List<Attachments> attachment, int priority) {
+    public attributeSearch(String sender, String receiver, String email, String type, String subject, String date, boolean attachment, int priority) {
         Sender = sender;
         Receiver = receiver;
         this.email = email;
@@ -75,11 +71,11 @@ public class EmailInfo implements Serializable {
         Date = date;
     }
 
-    public List<Attachments> getAttachment() {
+    public boolean isAttachment() {
         return Attachment;
     }
 
-    public void setAttachment(List<Attachments> attachment) {
+    public void setAttachment(boolean attachment) {
         Attachment = attachment;
     }
 

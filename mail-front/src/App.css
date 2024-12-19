@@ -1,57 +1,40 @@
-
-.email-list {
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  width: 700px; /* Adjusted width */
-  max-height: 80vh; /* Fixed height for scrollable area */
+.mainPage{
+  overflow-x: hidden;
   overflow-y: auto;
-}
-
-.email-list table {
-  width: 100%;
-  text-align: left;
-}
-
-.email-list th,
-.email-list td {
-  padding: 0.5rem;
-}
-
-.email-list th {
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.5); /* Add background color to header */
-  position: sticky; /* Make header sticky */
-  top: 0; /* Stick to the top */
-  z-index: 1; /* Ensure it is above other content */
-}
-
-.email-list tr {
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.emailButton {
   display: flex;
   align-items: center;
-  padding: 0; /* Remove padding */
-  justify-content: space-between;
-  margin-bottom: 10; /* Remove margin */
-  box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.12);
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid transparent;
-  color: black;
-  transition: box-shadow 0.3s, background-color 0.3s;
+  justify-content: center;
+  width: fit-content;
+  margin: 100px;
+  box-sizing: border-box;
+  flex-direction: column;
+  background-color: rgba(240, 248, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
 }
-
-.emailButton:hover {
-  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+.emailButton{
+  display: flex;
+  font: "Google Sans";
+  width: 900px;
+  min-height: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content:space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.12);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-color: red;
+  border: 10px;
+  color: black;
+  
+}
+.emailButton:hover{
+  box-shadow: inset 1px 0 0 #dadce0,inset -1px 0 0 #dadce0,0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
   cursor: pointer;
   z-index: 2;
-  background-color: rgba(255, 255, 255, 0.7);
 }
-
-.priorityButton {
+.priorityButton{
   width: 10px;
   height: 20px;
   align-self: center;
@@ -59,59 +42,35 @@
   background-image: radial-gradient(circle, rgb(71, 67, 67) 2px, transparent 3px);
   background-size: 100% 33.33%;
 }
-
-.emailSenderHeader,
-.emailSender {
-  display: flex;
-  align-items: center;
-  width: 15%; /* Adjusted width */
+.emailSender{
+  flex-grow: 1;
+  margin-right: 32px;
+  width: 168px;
   opacity: 1;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
-
-.sender-name {
-  margin-left: 10px;
-}
-
-.emailSubjectHeader,
-.emailSubject {
-  width: 55%; /* Adjusted width */
+.emailSubject{
+  flex-grow: 2;
   padding-right: 16px;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
   opacity: 1;
 }
-
-.emailDateHeader,
-.emailDate {
-  width: 15%; /* Adjusted width */
-  text-align: right;
+.emailDate{
+  margin-right: 10px;
+  align-self: flex-end;
+  padding-left: 50px;
   opacity: 1;
 }
-
-.more-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #5f6368;
-  font-size: 16px;
-}
-
-.more-button:hover {
-  color: #000;
-}
-
-inbox-wrapper {
+.App{
   display: flex;
-  flex-direction: row; /* Horizontal layout */
-  align-items: flex-start; /* Align items to the top */
-  gap: 20px; /* Space between filters and email list */
-  padding: 10px;
-}
-.inbox-container {
-  flex-grow: 1; /* Ensure the inbox takes up remaining space */
+  min-height: 100vh;
+  margin: 0;
+  background-image: url('img0.jpg');
+  background-size: cover;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Avoid repeating the image */
+  background-attachment: fixed;
   width: 100%;
 }

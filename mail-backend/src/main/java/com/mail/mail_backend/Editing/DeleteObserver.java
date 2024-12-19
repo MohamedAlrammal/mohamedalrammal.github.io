@@ -1,11 +1,10 @@
 package com.mail.mail_backend.Editing;
 
+import java.util.List;
+
 import com.mail.mail_backend.Contact.ContactsUsers;
 import com.mail.mail_backend.Contact.DeleteContacts;
 import com.mail.mail_backend.Contact.LoadContacts;
-import com.mail.mail_backend.Contact.SaveContacts;
-
-import java.util.List;
 
 public class DeleteObserver implements EditObserver{
     @Override
@@ -14,7 +13,7 @@ public class DeleteObserver implements EditObserver{
         LoadContacts loadContacts=new LoadContacts();
         List<ContactsUsers> loadings=loadContacts.getContactsUsers();
         for(ContactsUsers c:loadings) {
-            if (c.getAdmin() == null || c.getAccounts() == null) {
+            if (c.getAdmin() == null || c.getemails() == null) {
                 continue; // Skip invalid entries
             }
             if(c.getAdmin().equals(contactsUsers.getAdmin())&& c.getName().equals(contactsUsers.getName())){

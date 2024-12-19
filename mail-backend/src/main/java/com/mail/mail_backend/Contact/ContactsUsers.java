@@ -8,12 +8,12 @@ public class ContactsUsers implements Serializable {
     private static final long serialVersionUID = 3915522481892032731L;
     private String Admin;
     private String name;
-    private List<String>Accounts;
+    private List<String>emails;
 
-    public ContactsUsers(String admin, String name, List<String> accounts) {
+    public ContactsUsers(String admin, String name, List<String> emails) {
         Admin = admin;
         this.name = name;
-        Accounts = accounts;
+        this.emails = emails;
     }
 
     public String getAdmin() {
@@ -32,12 +32,12 @@ public class ContactsUsers implements Serializable {
         this.name = name;
     }
 
-    public List<String> getAccounts() {
-        return Accounts;
+    public List<String> getemails() {
+        return emails;
     }
 
-    public void setAccounts(List<String> accounts) {
-        Accounts = accounts;
+    public void setemails(List<String> emails) {
+        this.emails = emails;
     }
     @Override
     public boolean equals(Object o) {
@@ -46,13 +46,13 @@ public class ContactsUsers implements Serializable {
         ContactsUsers that = (ContactsUsers) o;
         return Objects.equals(Admin, that.Admin) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(Accounts, that.Accounts);
+                Objects.equals(emails, that.emails);
     }
 
     // Override hashCode() for use in hash-based collections
     @Override
     public int hashCode() {
-        return Objects.hash(Admin, name, Accounts);
+        return Objects.hash(Admin, name, emails);
     }
 
 }

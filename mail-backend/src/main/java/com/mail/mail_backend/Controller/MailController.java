@@ -1,8 +1,6 @@
 package com.mail.mail_backend.Controller;
 
-import com.mail.mail_backend.Builder.DeleteMail;
-import com.mail.mail_backend.Builder.EmailInfo;
-import com.mail.mail_backend.Builder.person;
+import com.mail.mail_backend.Builder.*;
 import com.mail.mail_backend.Contact.ContactsUsers;
 import com.mail.mail_backend.Service.MailService;
 import com.mail.mail_backend.Login.Request;
@@ -91,8 +89,8 @@ public class MailController {
         return mailService.contactList(person);
     }
     @PostMapping("/search")
-     public List<EmailInfo> search(@RequestBody EmailInfo emailInfo){
-        return mailService.Search(emailInfo);
+     public List<EmailInfo> search(@RequestBody attributeSearch attributeSearch){
+        return mailService.Search(attributeSearch);
     }
     @PostMapping("/edit")
     public List<ContactsUsers>edit(@RequestBody ContactsUsers contactsUsers){
@@ -109,6 +107,10 @@ public class MailController {
     @PostMapping("/sortCo")
     public List <ContactsUsers> sortco(@RequestBody person person){
         return mailService.sortCo(person);
+    }
+    @PostMapping("/restore")
+    public List<DeleteMail> deletes(@RequestBody RestoreRequest restoreRequest){
+        return mailService.restore(restoreRequest.getPerson(),restoreRequest.getDeleteMail());
     }
 
 
